@@ -13,8 +13,10 @@ import android.view.View
 import com.horical.kmvparchitect.BuildConfig
 import com.horical.kmvparchitect.R
 import com.horical.kmvparchitect.ui.base.BaseActivity
+import com.horical.kmvparchitect.ui.feed.FeedActivity
 import com.horical.kmvparchitect.ui.login.LoginActivity
 import com.horical.kmvparchitect.ui.main.about.AboutFragment
+import com.horical.kmvparchitect.ui.main.rating.RateUsDialog
 import com.horical.kmvparchitect.utils.ScreenUtils
 import com.horical.kmvparchitect.utils.ViewAnimationsUtils
 import com.mindorks.placeholderview.SwipeDecor
@@ -42,31 +44,6 @@ class MainActivity : BaseActivity<MainPresenter>(), IMainView, HasSupportFragmen
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun attachView() = mPresenter.onAttach(this)
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val drawable = item.icon
-        if (drawable is Animatable) {
-            drawable.start()
-        }
-        when (item.itemId) {
-            R.id.action_cut -> return true
-            R.id.action_copy -> return true
-            R.id.action_share -> return true
-            R.id.action_delete -> return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun setUp() {
-        setupNavigationView()
-        setupCardContainerView()
-    }
 
     override fun handleError(errorCode: Int?, throwable: Throwable?) {
         handleThrowable(throwable)
@@ -98,14 +75,37 @@ class MainActivity : BaseActivity<MainPresenter>(), IMainView, HasSupportFragmen
         finish()
     }
 
-    override fun getQuestionsSuccess() {
-        cardsContainer.removeAllViews()
-        for (mQuestionCard in mPresenter.mQuestionCards) {
-            if (mQuestionCard.options.size == 3) {
-                cardsContainer.addView(QuestionCard(cardsContainer.context, mQuestionCard))
-            }
+    private fun unlockDrawer() {
+        drawerView.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    private fun lockDrawer() {
+        drawerView.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val drawable = item.icon
+        if (drawable is Animatable) {
+            drawable.start()
         }
-        ViewAnimationsUtils.scaleAnimateView(cardsContainer)
+        when (item.itemId) {
+            R.id.action_cut -> return true
+            R.id.action_copy -> return true
+            R.id.action_share -> return true
+            R.id.action_delete -> return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun setUp() {
+        setupNavigationView()
+        setupCardContainerView()
     }
 
     private fun setupNavigationView() {
@@ -135,11 +135,11 @@ class MainActivity : BaseActivity<MainPresenter>(), IMainView, HasSupportFragmen
                     true
                 }
                 R.id.navItemRateUs -> {
-
+                    RateUsDialog.newInstance().show(supportFragmentManager)
                     true
                 }
                 R.id.navItemFeed -> {
-
+                    startActivity(FeedActivity.newIntent(this))
                     true
                 }
                 R.id.navItemLogout -> {
@@ -186,12 +186,14 @@ class MainActivity : BaseActivity<MainPresenter>(), IMainView, HasSupportFragmen
         mPresenter.loadQuestionCards()
     }
 
-    private fun unlockDrawer() {
-        drawerView.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-    }
-
-    private fun lockDrawer() {
-        drawerView.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    override fun getQuestionsSuccess() {
+        cardsContainer.removeAllViews()
+        for (mQuestionCard in mPresenter.mQuestionCards) {
+            if (mQuestionCard.options.size == 3) {
+                cardsContainer.addView(QuestionCard(cardsContainer.context, mQuestionCard))
+            }
+        }
+        ViewAnimationsUtils.scaleAnimateView(cardsContainer)
     }
 
     private fun showAboutFragment() {
@@ -201,9 +203,5 @@ class MainActivity : BaseActivity<MainPresenter>(), IMainView, HasSupportFragmen
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .add(R.id.clRootView, AboutFragment.newInstance(), AboutFragment.TAG)
                 .commit()
-    }
-
-    private fun showRateUsFragment() {
-
     }
 }

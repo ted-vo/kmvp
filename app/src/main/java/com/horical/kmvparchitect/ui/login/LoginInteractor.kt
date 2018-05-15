@@ -2,7 +2,7 @@ package com.horical.kmvparchitect.ui.login
 
 import android.content.Context
 import com.horical.kmvparchitect.data.db.user.UserRepo
-import com.horical.kmvparchitect.data.network.ApiService
+import com.horical.kmvparchitect.data.network.ApiHelper
 import com.horical.kmvparchitect.data.network.request.LoginRequest
 import com.horical.kmvparchitect.data.network.response.LoginResponse
 import com.horical.kmvparchitect.data.prefs.PreferencesHelper
@@ -15,20 +15,21 @@ class LoginInteractor
 @Inject
 constructor(private val mContext: Context,
             private val mUserRepository: UserRepo,
-            mApiService: ApiService,
-            mPreferencesHelper: PreferencesHelper) : BaseInteractor(mApiService, mPreferencesHelper), ILoginInteractor {
+            mApiHelper: ApiHelper,
+            mPreferencesHelper: PreferencesHelper)
+    : BaseInteractor(mApiHelper, mPreferencesHelper), ILoginInteractor {
 
     override fun doServerLoginApiCall(email: String, password: String): Observable<LoginResponse> {
-        return mApiService.doServerLoginApiCall(LoginRequest.ServerLoginRequest(email, password))
+        return mApiHelper.doServerLoginApiCall(LoginRequest.ServerLoginRequest(email, password))
     }
 
     override fun doFBLoginApiCall(): Observable<LoginResponse> {
-        return mApiService.doFacebookLoginApiCall(
+        return mApiHelper.doFacebookLoginApiCall(
                 LoginRequest.FacebookLoginRequest("test", "test"))
     }
 
     override fun doGoogleLoginApiCall(): Observable<LoginResponse> {
-        return mApiService.doGoogleLoginApiCall(
+        return mApiHelper.doGoogleLoginApiCall(
                 LoginRequest.GoogleLoginRequest("test", "test"))
     }
 

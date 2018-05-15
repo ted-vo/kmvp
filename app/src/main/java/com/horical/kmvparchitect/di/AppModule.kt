@@ -13,8 +13,8 @@ import com.horical.kmvparchitect.data.db.question.AppQuestionRepo
 import com.horical.kmvparchitect.data.db.question.QuestionRepo
 import com.horical.kmvparchitect.data.db.user.AppUserRepo
 import com.horical.kmvparchitect.data.db.user.UserRepo
+import com.horical.kmvparchitect.data.network.ApiHelper
 import com.horical.kmvparchitect.data.network.ApiManager
-import com.horical.kmvparchitect.data.network.ApiService
 import com.horical.kmvparchitect.data.network.HeadersInterceptor
 import com.horical.kmvparchitect.data.network.exception.RxErrorHandlingCallAdapterFactory
 import com.horical.kmvparchitect.data.prefs.AppPreferencesHelper
@@ -125,7 +125,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    internal fun provideApiService(apiManager: ApiManager): ApiService = apiManager
+    internal fun provideApiService(apiManager: ApiManager): ApiHelper = apiManager
 
     @Provides
     internal fun provideScheduleProvider(): ScheduleProvider = AppSchedulerProvider()

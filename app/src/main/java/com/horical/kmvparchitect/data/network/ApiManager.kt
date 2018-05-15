@@ -9,31 +9,31 @@ import io.reactivex.Observable
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ApiManager @Inject constructor(retrofit: Retrofit) : ApiService {
+class ApiManager @Inject constructor(retrofit: Retrofit) : ApiHelper {
 
-    private val mApiService = retrofit.create(ApiService::class.java)
+    private val mApiHelper = retrofit.create(ApiHelper::class.java)
 
     override fun doFacebookLoginApiCall(request: LoginRequest.FacebookLoginRequest): Observable<LoginResponse> {
-        return mApiService.doFacebookLoginApiCall(request)
+        return mApiHelper.doFacebookLoginApiCall(request)
     }
 
     override fun doGoogleLoginApiCall(request: LoginRequest.GoogleLoginRequest): Observable<LoginResponse> {
-        return mApiService.doGoogleLoginApiCall(request)
+        return mApiHelper.doGoogleLoginApiCall(request)
     }
 
     override fun doServerLoginApiCall(request: LoginRequest.ServerLoginRequest): Observable<LoginResponse> {
-        return mApiService.doServerLoginApiCall(request)
+        return mApiHelper.doServerLoginApiCall(request)
     }
 
     override fun doLogoutApiCall(): Observable<LogoutResponse> {
-        return mApiService.doLogoutApiCall()
+        return mApiHelper.doLogoutApiCall()
     }
 
     override fun getBlogApiCall(): Observable<BlogResponse> {
-        return mApiService.getBlogApiCall()
+        return mApiHelper.getBlogApiCall()
     }
 
     override fun getOpenSourceApiCall(): Observable<OpenSourceResponse> {
-        return mApiService.getOpenSourceApiCall()
+        return mApiHelper.getOpenSourceApiCall()
     }
 }

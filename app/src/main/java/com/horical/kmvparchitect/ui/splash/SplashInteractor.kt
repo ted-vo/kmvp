@@ -7,7 +7,7 @@ import com.horical.kmvparchitect.data.db.model.Option
 import com.horical.kmvparchitect.data.db.model.Question
 import com.horical.kmvparchitect.data.db.option.OptionRepo
 import com.horical.kmvparchitect.data.db.question.QuestionRepo
-import com.horical.kmvparchitect.data.network.ApiService
+import com.horical.kmvparchitect.data.network.ApiHelper
 import com.horical.kmvparchitect.data.prefs.PreferencesHelper
 import com.horical.kmvparchitect.ui.base.BaseInteractor
 import com.horical.kmvparchitect.utils.AppConstants
@@ -20,8 +20,8 @@ class SplashInteractor
 constructor(private val context: Context,
             private val questionRepo: QuestionRepo,
             private val optionRepo: OptionRepo,
-            mApiService: ApiService,
-            mPreferences: PreferencesHelper) : BaseInteractor(mApiService, mPreferences), ISplashInteractor {
+            mApiHelper: ApiHelper,
+            mPreferences: PreferencesHelper) : BaseInteractor(mApiHelper, mPreferences), ISplashInteractor {
 
     override fun seedQuestions(): Observable<Boolean> {
         val builder = GsonBuilder().excludeFieldsWithoutExposeAnnotation()

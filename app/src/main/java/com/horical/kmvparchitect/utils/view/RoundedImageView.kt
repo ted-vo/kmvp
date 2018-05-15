@@ -1,4 +1,4 @@
-package com.kev.karchitect.utils.custom_view
+package com.horical.kmvparchitect.utils.view
 
 import android.annotation.SuppressLint
 import android.content.Context

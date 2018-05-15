@@ -1,4 +1,6 @@
 package com.horical.kmvparchitect.ui.main.rating
 
-interface IRateUsInteractor {
+import com.horical.kmvparchitect.ui.base.IBaseInteractor
+
+interface IRateUsInteractor : IBaseInteractor {
 }

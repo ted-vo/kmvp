@@ -9,10 +9,9 @@ import javax.inject.Inject
 
 class LoginPresenter
 @Inject
-constructor(
-        mInteractor: ILoginInteractor,
-        mScheduleProvider: ScheduleProvider,
-        mCompositeDisposable: CompositeDisposable)
+constructor(mInteractor: ILoginInteractor,
+            mScheduleProvider: ScheduleProvider,
+            mCompositeDisposable: CompositeDisposable)
     : BasePresenter<ILoginView, ILoginInteractor>(mInteractor, mScheduleProvider, mCompositeDisposable), ILoginPresenter {
 
     override fun onServerLoginClick(email: String, password: String) {
@@ -33,8 +32,7 @@ constructor(
                                     }, {
                                         getView().handleError(null, it)
                                         getView().hideLoading()
-                                    })
-                    )
+                                    }))
                 }
             }
         }

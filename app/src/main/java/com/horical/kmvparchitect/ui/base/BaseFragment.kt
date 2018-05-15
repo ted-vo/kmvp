@@ -31,7 +31,7 @@ abstract class BaseFragment<P : BasePresenter<*, *>> : Fragment(), IBaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidSupportInjection.inject(this)
+        AndroidSupportInjection.inject(this )
         setHasOptionsMenu(false)
     }
 
@@ -48,6 +48,11 @@ abstract class BaseFragment<P : BasePresenter<*, *>> : Fragment(), IBaseView {
     override fun onDestroy() {
         super.onDestroy()
         mPresenter.onDetach()
+    }
+
+    override fun onDetach() {
+        mActivity = null;
+        super.onDetach()
     }
 
     abstract fun getLayoutId(): Int

@@ -5,7 +5,7 @@ import com.horical.kmvparchitect.data.db.model.Option
 import com.horical.kmvparchitect.data.db.model.Question
 import com.horical.kmvparchitect.data.db.option.OptionRepo
 import com.horical.kmvparchitect.data.db.question.QuestionRepo
-import com.horical.kmvparchitect.data.network.ApiService
+import com.horical.kmvparchitect.data.network.ApiHelper
 import com.horical.kmvparchitect.data.network.response.LogoutResponse
 import com.horical.kmvparchitect.data.prefs.PreferencesHelper
 import com.horical.kmvparchitect.ui.base.BaseInteractor
@@ -18,10 +18,10 @@ class MainInteractor
 constructor(private val context: Context,
             private val questionRepo: QuestionRepo,
             private val optionRepo: OptionRepo,
-            mApiService: ApiService,
-            mPreferencesHelper: PreferencesHelper) : BaseInteractor(mApiService, mPreferencesHelper), IMainInteractor {
+            mApiHelper: ApiHelper,
+            mPreferencesHelper: PreferencesHelper) : BaseInteractor(mApiHelper, mPreferencesHelper), IMainInteractor {
 
-    override fun logout(): Observable<LogoutResponse> = mApiService.doLogoutApiCall()
+    override fun logout(): Observable<LogoutResponse> = mApiHelper.doLogoutApiCall()
 
     override fun getUserInfo(): Pair<String?, String?> {
         return Pair(mPreferences.getCurrentUserEmail(), mPreferences.getCurrentUserName())

@@ -1,11 +1,11 @@
 package com.horical.kmvparchitect.ui.base
 
-import com.horical.kmvparchitect.data.network.ApiService
+import com.horical.kmvparchitect.data.network.ApiHelper
 import com.horical.kmvparchitect.data.prefs.PreferencesHelper
 import com.horical.kmvparchitect.utils.AppConstants
 
 open class BaseInteractor
-constructor(protected val mApiService: ApiService,
+constructor(protected val mApiHelper: ApiHelper,
             protected val mPreferences: PreferencesHelper) : IBaseInteractor {
 
     override fun isUserLoggedIn(): Boolean {

@@ -14,19 +14,4 @@ class AppUserRepo @Inject constructor(private var userDao: UserDao) : UserRepo {
         userDao.insert(user)
         true
     }
-
-    /**
-    override fun getAllUsers(): Observable<List<User>> {
-    return Observable.fromCallable { userDao.loadAll() }
-    }
-     */
-
-    /**
-    override fun insertUser(user: User): Observable<Boolean> {
-    return Observable.fromCallable {
-    userDao.insert(user)
-    true
-    }
-    }
-     */
 }

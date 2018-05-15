@@ -10,7 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface ApiService {
+interface ApiHelper {
 
     @POST("588d15d3100000ae072d2944")
     fun doFacebookLoginApiCall(@Body request: LoginRequest.FacebookLoginRequest): Observable<LoginResponse>

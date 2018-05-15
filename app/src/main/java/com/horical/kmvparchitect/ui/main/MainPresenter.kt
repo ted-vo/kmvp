@@ -26,8 +26,7 @@ constructor(mInteractor: IMainInteractor,
                 }, {
                     getView().hideLoading()
                     getView().handleError(null, it)
-                })
-        )
+                }))
     }
 
     override fun loadQuestionCards() {
